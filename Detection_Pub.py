@@ -1,11 +1,13 @@
 import cv2
 import numpy as np
+import os
 from PIL import ImageGrab,ImageFilter
 import time 
 
 from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
+
 def localisation(img):
 
     image_rect = cv2.pyrDown(img)
@@ -39,7 +41,7 @@ def ROI(img, sommet):
     img_masquee = cv2.bitwise_and(img,masque)
     return img_masquee
 
-def process_image(image_ori):
+def process_image(image_ori, cmpt):
 
     processed_img = image_ori
     L = processed_img.shape[1]
@@ -50,20 +52,28 @@ def process_image(image_ori):
     sommet = np.array([[L,H/25], [L,HDH], [HDL,HDH], [HDL,H/25]], np.int32)
     new_img = ROI(processed_img,[sommet])
 
+    img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
+    FILES_DIR = 'C:/Users/Theo/Documents/GitHub/Detect_PUB/Logo'
+    SAVE_PATH = "C:/Users/Theo/Documents/GitHub/Detect_PUB/Logo"
+    #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
+    LOGFILE_NAME = "logo"+str(cmpt)+".png"
+    LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
+    img.save(LOGFILE_PATH)
+
     localisation(new_img)
 
-    
     return new_img
 
-
 # last_time = time.time()
+cmpt = 110
 while(True):
     ecran = np.array(ImageGrab.grab().filter(ImageFilter.SHARPEN)) #bbox=(0,40, 900, 800)
 
     ecran_gris = cv2.cvtColor((ecran), cv2.COLOR_BGR2RGB)
     ecran_gris = cv2.cvtColor((ecran), cv2.COLOR_BGR2GRAY)
 
-    new_ecran = process_image(ecran_gris)
+    new_ecran = process_image(ecran_gris,cmpt)
+    cmpt +=1
     # cv2.imshow('window1',cv2.cvtColor((new_ecran), cv2.COLOR_BGR2RGB))
     # cv2.imshow('window2',cv2.cvtColor((ecran), cv2.COLOR_BGR2RGB))
 
