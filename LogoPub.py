@@ -1,10 +1,10 @@
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 from keras import utils, layers, models, optimizers
 from keras.preprocessing import image
 
-from sklearn.preprocessing import LabelBinarizer, MultiLabelBinarizer
+#from sklearn.preprocessing import LabelBinarizer, MultiLabelBinarizer
 
 # target image size
 n_pix = 40
@@ -13,7 +13,7 @@ n_pix = 40
 datagen = image.ImageDataGenerator(rescale=1./255, validation_split=0.2)
 
 # train set
-train_generator = datagen.flow_from_directory("logos", subset='training', target_size=(n_pix,n_pix), batch_size=32)
+train_generator = datagen.flow_from_directory("./Photos", subset='training', target_size=(n_pix,n_pix), batch_size=32)
 
 # validation set
 #valid_generator = datagen.flow_from_directory("logos", subset='validation', target_size=(n_pix,n_pix), batch_size=501)
