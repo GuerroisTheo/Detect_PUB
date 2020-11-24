@@ -20,17 +20,17 @@ train_generator = datagen.flow_from_directory("logos", subset='training', target
 
 # Define the network
 model = models.Sequential()
-model.add(layers.SeparableConv2D(32, (3,3), activation='relu', input_shape=(40,40,3)))
+model.add(layers.SeparableConv2D(32, (3,3), activation='relu', input_shape=(n_pix,n_pix,3)))
 model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.SeparableConv2D(64, (3, 3), activation='relu') )
 model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.SeparableConv2D(128, (3, 3), activation='relu') )
 model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.Flatten())
-model.add(layers.Dense(501, activation='relu') )
-#model.add(layers.Dense(1, activation='sigmoid'))
-model.add(layers.Dense(2,activation='softmax'))#Logo ou pas logo
-model.compile(loss='categorical_crossentropy', optimizer=optimizers.Adam(lr=1e-4), metrics=['acc'])
+model.add(layers.Dense(501, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid')) #Logo ou pas logo
+#model.add(layers.Dense(2,activation='softmax'))
+model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=1e-4), metrics=['acc'])
 
 # Train the network
 history = model.fit_generator(
