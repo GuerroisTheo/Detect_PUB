@@ -53,10 +53,10 @@ def process_image(image_ori, cmpt):
     new_img = ROI(processed_img,[sommet])
 
     img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
-    FILES_DIR = 'C:/Users/Theo/Documents/GitHub/Detect_PUB/Logo'
-    SAVE_PATH = "C:/Users/Theo/Documents/GitHub/Detect_PUB/Logo"
+    FILES_DIR = 'D:/GITHUB/Detect_PUB/Pub'
+    SAVE_PATH = "D:/GITHUB/Detect_PUB/Pub"
     #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
-    LOGFILE_NAME = "logo"+str(cmpt)+".png"
+    LOGFILE_NAME = "pub"+str(cmpt)+".png"
     LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
     img.save(LOGFILE_PATH)
 
@@ -65,7 +65,7 @@ def process_image(image_ori, cmpt):
     return new_img
 
 # last_time = time.time()
-cmpt = 110
+cmpt = 0
 while(True):
     ecran = np.array(ImageGrab.grab().filter(ImageFilter.SHARPEN)) #bbox=(0,40, 900, 800)
 
