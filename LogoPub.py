@@ -29,13 +29,13 @@ model.add(layers.MaxPooling2D((2,2)))
 model.add(layers.Flatten())
 model.add(layers.Dense(501, activation='relu'))
 model.add(layers.Dense(1, activation='sigmoid')) #Logo ou pas logo
-#model.add(layers.Dense(2,activation='softmax'))
+model.add(layers.Dense(2,activation='softmax'))
 model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=1e-4), metrics=['acc'])
 
 # Train the network
 history = model.fit_generator(
       train_generator,
-      steps_per_epoch=100,
+      steps_per_epoch=60,
       epochs=10)
       #validation_data=valid_generator,
       #validation_steps=50)
@@ -44,7 +44,7 @@ history = model.fit_generator(
 classes = list(train_generator.class_indices.keys())
 
 # Read the test images
-test_generator = datagen.flow_from_directory("logos_test", class_mode=None, target_size=(n_pix,n_pix), batch_size=9)
+test_generator = datagen.flow_from_directory("./LogoTest", class_mode=None, target_size=(n_pix,n_pix), batch_size=9)
 test_images = next(test_generator)
 
 # Test the network

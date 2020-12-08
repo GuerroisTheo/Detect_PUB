@@ -53,10 +53,24 @@ def process_image(image_ori, cmpt):
     new_img = ROI(processed_img,[sommet])
 
     img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
+<<<<<<< Updated upstream
     FILES_DIR = 'C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo'
     SAVE_PATH = "C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo"
     #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
     LOGFILE_NAME = "france"+str(cmpt)+".png"
+=======
+<<<<<<< HEAD
+    FILES_DIR = 'D:/GITHUB/Detect_PUB/Photos/Logo'
+    SAVE_PATH = "D:/GITHUB/Detect_PUB/Photos/Logo"
+    #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
+    LOGFILE_NAME = "M6"+str(cmpt)+".png"
+=======
+    FILES_DIR = 'C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo'
+    SAVE_PATH = "C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo"
+    #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
+    LOGFILE_NAME = "france"+str(cmpt)+".png"
+>>>>>>> a2e644d1eed970c114ecb2f35faef0967fb4bbc2
+>>>>>>> Stashed changes
     LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
     img.save(LOGFILE_PATH)
 
