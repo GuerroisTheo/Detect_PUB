@@ -65,7 +65,7 @@ def process_image(image_ori, cmpt):
     return new_img
 
 # last_time = time.time()
-cmpt = 248
+cmpt = 0
 while(True):
     ecran = np.array(ImageGrab.grab().filter(ImageFilter.SHARPEN)) #bbox=(0,40, 900, 800)
 
