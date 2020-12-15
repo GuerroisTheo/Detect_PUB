@@ -69,14 +69,14 @@ def process_image(image_ori, cmpt):
 # last_time = time.time()
 cmpt = 778
 while(True):
-    ecran = np.array(ImageGrab.grab().filter(ImageFilter.SHARPEN)) #bbox=(0,40, 900, 800)
+    screen = np.array(ImageGrab.grab(bbox=(1594, 41, 1902 , 137))) #bbox=(0,40, 900, 800)
 
-    ecran_gris = cv2.cvtColor((ecran), cv2.COLOR_BGR2RGB)
-    ecran_gris = cv2.cvtColor((ecran), cv2.COLOR_BGR2GRAY)
+    ecran_ = cv2.cvtColor((screen), cv2.COLOR_BGR2RGB)
+    # ecran_gris = cv2.cvtColor((ecran), cv2.COLOR_BGR2GRAY)
 
-    new_ecran = process_image(ecran_gris,cmpt)
-    cmpt +=1
-    # cv2.imshow('window1',cv2.cvtColor((new_ecran), cv2.COLOR_BGR2RGB))
+    # new_ecran = process_image(ecran_gris,cmpt)
+    # cmpt +=1
+    cv2.imshow('window1',cv2.cvtColor((ecran_), cv2.COLOR_BGR2RGB))
     # cv2.imshow('window2',cv2.cvtColor((ecran), cv2.COLOR_BGR2RGB))
 
 
