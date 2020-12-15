@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from keras import utils, layers, optimizers, models
 from keras.preprocessing import image
 from keras.callbacks import ModelCheckpoint
-
+from tensorflow.keras.models import load_model
 from sklearn.preprocessing import LabelBinarizer, MultiLabelBinarizer
 
 import os
@@ -40,18 +40,19 @@ model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=1e-4), me
 #path = "training/cp.ckpt"
 #direction = os.path.dirname(path)
 
-mcp_save = ModelCheckpoint("bestmodel.h5", save_best_only=True, verbose = 1, monitor = "acc", mode = "auto")
+#mcp_save = ModelCheckpoint("test.h5", save_best_only=True, verbose = 1, monitor = "acc", mode = "auto")
 
 # Train the network
 history = model.fit(
       train_generator,
       steps_per_epoch=125,
       epochs=10,
-      callbacks = [mcp_save])
+      )
+      #callbacks = [mcp_save]
       #validation_data=valid_generator,
       #validation_steps=50)
 
-model.save("param.h5")
+#model.save("param.h5", None)
 
 #for key in history.history :
 #	print(key)

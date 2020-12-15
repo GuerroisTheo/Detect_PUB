@@ -13,6 +13,8 @@ user32.SetProcessDPIAware()
 
 model = models.load_model('bestmodel.h5')
 
+CATEGORIES = ["LOGO", "PUB"]
+
 g_repscreen = repeatedTime.RepeatedTimer(1,screen)
 
 def init():
@@ -21,6 +23,7 @@ def init():
 def screen():
     image = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
     prediction = model.predict(image)
+    print(CATEGORIES[int(prediction[0][0])])
     return prediction
 
 
