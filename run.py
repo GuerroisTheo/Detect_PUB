@@ -4,11 +4,14 @@ import os
 from PIL import ImageGrab,ImageFilter
 import time
 import repeatedTime
+from keras import models
 
 # c'est pour avoir tout l'écran
 from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
+
+model = models.load_model('bestmodel.h5')
 
 g_repscreen = repeatedTime.RepeatedTimer(1,screen)
 
@@ -16,7 +19,9 @@ def init():
     g_repscreen.start()
 
 def screen():
-    return ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
+    image = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
+    prediction = model.predict(image)
+    return prediction
 
 
 if __name__ == "__main__":

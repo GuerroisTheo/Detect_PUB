@@ -3,8 +3,11 @@ import matplotlib.pyplot as plt
 
 from keras import utils, layers, optimizers, models
 from keras.preprocessing import image
+from keras.callbacks import ModelCheckpoint
 
 from sklearn.preprocessing import LabelBinarizer, MultiLabelBinarizer
+
+import os
 
 # target image size
 n_pixlo = 40
@@ -34,13 +37,24 @@ model.add(layers.Dense(2,activation='softmax'))
 model.summary()
 model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=1e-4), metrics=['acc'])
 
+#path = "training/cp.ckpt"
+#direction = os.path.dirname(path)
+
+mcp_save = ModelCheckpoint("bestmodel.h5", save_best_only=True, verbose = 1, monitor = "acc", mode = "auto")
+
 # Train the network
-history = model.fit_generator(
+history = model.fit(
       train_generator,
-      steps_per_epoch=40,
-      epochs=10)
+      steps_per_epoch=125,
+      epochs=10,
+      callbacks = [mcp_save])
       #validation_data=valid_generator,
       #validation_steps=50)
+
+model.save("param.h5")
+
+#for key in history.history :
+#	print(key)
 
 # Get the class names from the training set
 classes = list(train_generator.class_indices.keys())
