@@ -13,26 +13,32 @@ user32.SetProcessDPIAware()
 
 model = models.load_model('bestmodel.h5')
 
-CATEGORIES = ["LOGO", "PUB"]
+CATEGORIES = ["LOGO","PUB"]
 
-g_repscreen = repeatedTime.RepeatedTimer(1,screen)
+g_repscreen = repeatedTime.RepeatedTimer(1,timer)
 
 def init():
     g_repscreen.start()
 
+
+def timer():
+    cat = screen()
+    # si pub ==> on commence le timer
+    
+
 def screen():
     image = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
     prediction = model.predict(image)
-    print(CATEGORIES[int(prediction[0][0])])
-    return prediction
+    return CATEGORIES[int(prediction[0][0])]
+
+
 
 
 if __name__ == "__main__":
     init()
     while(True):
-        if cv2.waitKey(25)& 0xFF == ord('q'):
+        if 0xFF == ord('q'):
             g_repscreen.stop()
-            cv2.destroyAllWindows()
             break
 
 
