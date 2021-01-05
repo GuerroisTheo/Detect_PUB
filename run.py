@@ -14,14 +14,23 @@ user32.SetProcessDPIAware()
 # model = models.load_model('bestmodel.h5')
 
 CATEGORIES = ["LOGO","PUB"]
-g_repscreen = repeatedTime()
+g_repscreen = None
 tempsPub = []
 g_bloqueur = 1
 
 def init():
+    global g_repscreen, g_bloqueur
+    g_repscreen = repeatedTime.RepeatedTimer(1,timer)
+    
+    startAll()
+
+def startAll():
+    global g_repscreen, g_bloqueur
     g_repscreen.start()
 
+
 def screen():
+    print('yes')
     screen = np.array(ImageGrab.grab(bbox=(1594, 41, 1902 , 137)))
     image = cv2.cvtColor((screen), cv2.COLOR_BGR2RGB)
     return image
@@ -44,9 +53,9 @@ def timer():
     #     g_bloqueur = 1
 
 
-g_repscreen = repeatedTime.RepeatedTimer(1,timer)
 
 if __name__ == "__main__":
+    global g_repscreen, g_bloqueur
     init()
     while(True):
         if 0xFF == ord('q'):
