@@ -14,6 +14,7 @@ user32.SetProcessDPIAware()
 # model = models.load_model('bestmodel.h5')
 
 CATEGORIES = ["LOGO","PUB"]
+g_repscreen = repeatedTime()
 tempsPub = []
 g_bloqueur = 1
 
