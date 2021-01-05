@@ -17,6 +17,8 @@ CATEGORIES = ["LOGO","PUB"]
 g_repscreen = None
 tempsPub = []
 g_bloqueur = 1
+t1 = 0
+t2 = 0
 
 def init():
     global g_repscreen, g_bloqueur
@@ -30,7 +32,15 @@ def startAll():
 
 
 def screen():
-    print('yes')
+
+    # if(y != 0): #dont mind me im a test (y & n were global)
+    #     print('yes')
+    #     retourne = "yes"
+    #     y = y - 1
+    # if(n != 0 and y == 0):
+    #     print('no')
+    #     retourne = "no"
+    #     n = n - 1
     screen = np.array(ImageGrab.grab(bbox=(1594, 41, 1902 , 137)))
     image = cv2.cvtColor((screen), cv2.COLOR_BGR2RGB)
     return image
@@ -40,22 +50,21 @@ def screen():
     # return CATEGORIES[int(prediction[0][0])]
 
 def timer():
-    global g_repscreen, g_bloqueur
+    global g_repscreen, g_bloqueur, tempsPub, t1, t2
     cat = screen()
 
-
-    # if cat == "PUB" and g_bloqueur == 1:
-    #     t1 = time.time()
-    #     g_bloqueur = 0
-    # if cat != "PUB" and g_bloqueur == 0:
-    #     t2 = time.time()
-    #     tempsPub.append(t2-t1)
-    #     g_bloqueur = 1
+    if cat == "PUB" and g_bloqueur == 1:
+        t1 = time.time()
+        g_bloqueur = 0
+    if cat != "PUB" and g_bloqueur == 0:
+        t2 = time.time()
+        tempsPub.append(t2-t1)
+        print(t2-t1)
+        g_bloqueur = 1
 
 
 
 if __name__ == "__main__":
-    global g_repscreen, g_bloqueur
     init()
     while(True):
         if 0xFF == ord('q'):
