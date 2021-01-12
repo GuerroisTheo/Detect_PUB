@@ -52,7 +52,7 @@ history = model.fit(
       #validation_data=valid_generator,
       #validation_steps=50)
 
-#model.save("param.h5", None)
+model.save("param.h5", None)
 
 #for key in history.history :
 #	print(key)
