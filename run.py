@@ -17,8 +17,8 @@ user32.SetProcessDPIAware()
 
 model = models.load_model('param.h5')
 
-g_queue = collections.deque()
-g_tempsatt = 5
+g_queue = collections.deque([0.,0.,0.,0.,0.])
+g_tempsatt = 4
 
 datagen = image.ImageDataGenerator(rescale=1./255, validation_split=0.2)
 
@@ -65,7 +65,7 @@ def screen():
         
         g_queue.append(labels)
 
-        if len(g_queue)>g_tempsatt : 
+        if len(g_queue) > g_tempsatt : 
                 timer(g_queue)
                 taillemaxqueue(g_tempsatt,g_queue)
     else:
@@ -78,18 +78,23 @@ def taillemaxqueue(max,queue):
         taillemaxqueue(max,queue)
 
 def timer(g_queue):
-    global g_repscreen, g_bloqueur, tempsPub, t1, t2, g_klog, g_tempsatt
+    global g_repscreen, g_bloqueur, tempsPub, t1, t2, g_klog
 
     labels = list(collections.deque(g_queue))
+
+    if labels.count(1) == 5 or labels.count(0) == 5:
+
+        if CATEGORIES[int(labels[-1])] == "PUB" and g_bloqueur == 1:
+            t1 = time.time()
+            g_bloqueur = 0
+        if CATEGORIES[int(labels[-1])] != "PUB" and g_bloqueur == 0:
+            t2 = time.time()
+            tempsPub.append(t2-t1)
+            print(t2-t1)
+            g_bloqueur = 1
     
-    if CATEGORIES[int(labels[-1])] != "PUB" and g_bloqueur == 1:
-        t1 = time.time()
-        g_bloqueur = 0
-    if CATEGORIES[int(labels[-1])] == "PUB" and g_bloqueur == 0:
-        t2 = time.time()
-        tempsPub.append(t2-t1)
-        print(t2-t1)
-        g_bloqueur = 1
+    else:
+        pass
 
 
 if __name__ == "__main__":
