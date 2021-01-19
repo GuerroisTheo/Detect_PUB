@@ -70,7 +70,7 @@ def screen():
                 taillemaxqueue(g_tempsatt,g_queue)
     else:
         stopAll()
-        print(tempsPub)
+        print(sum(tempsPub))
 
 
 def taillemaxqueue(max,queue):
@@ -91,7 +91,6 @@ def timer(g_queue):
         if CATEGORIES[int(labels[-1])] != "PUB" and g_bloqueur == 0:
             t2 = time.time()
             tempsPub.append(t2-t1)
-            print(t2-t1)
             g_bloqueur = 1
     
     else:
