@@ -68,7 +68,7 @@ def screen():
     
     prediction = model.predict(test[0])
     labels = np.argmax(prediction, axis=1)
-    print(labels)
+    print(CATEGORIES[labels[0]])
     #print(CATEGORIES[int(prediction[0][0])])
     return CATEGORIES[int(prediction[0][0])]
 
