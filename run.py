@@ -18,7 +18,7 @@ user32.SetProcessDPIAware()
 model = models.load_model('param.h5')
 
 g_queue = collections.deque([0.,0.,0.,0.,0.])
-g_tempsatt = 4
+g_tempsatt = 5
 
 datagen = image.ImageDataGenerator(rescale=1./255, validation_split=0.2)
 
@@ -49,7 +49,7 @@ def stopAll():
 
 
 def screen():
-    global g_tempsatt
+    global g_tempsatt, tempsPub
     if (g_klog.a_stopMain):
         screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
         FILES_DIR = 'C:/Users/Theo/Documents/GitHub/Detect_PUB/puber'
@@ -59,8 +59,8 @@ def screen():
         LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         screen.save(LOGFILE_PATH)
         test = datagen.flow_from_directory("./puber", class_mode=None, target_size=(40,40), batch_size=1)
-        
         prediction = model.predict(test[0])
+
         labels = np.argmax(prediction, axis=1)
         
         g_queue.append(labels)
@@ -70,6 +70,7 @@ def screen():
                 taillemaxqueue(g_tempsatt,g_queue)
     else:
         stopAll()
+        print(tempsPub)
 
 
 def taillemaxqueue(max,queue):
