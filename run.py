@@ -48,8 +48,8 @@ def screen():
     screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
     #image = cv2.cvtColor((screen), cv2.COLOR_BGR2RGB)
 
-    FILES_DIR = 'C:/Users/TLG/Desktop/IAImage/ProjetPubE4/Detect_PUB/puber/images'
-    SAVE_PATH = 'C:/Users/TLG/Desktop/IAImage/ProjetPubE4/Detect_PUB/puber/images'
+    FILES_DIR = 'C:/Users/Theo/Documents/GitHub/Detect_PUB/puber'
+    SAVE_PATH = 'C:/Users/Theo/Documents/GitHub/Detect_PUB/puber'
     #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
     LOGFILE_NAME = "puber.png"
 
@@ -70,7 +70,7 @@ def screen():
     labels = np.argmax(prediction, axis=1)
     print(labels)
     #print(CATEGORIES[int(prediction[0][0])])
-    return CATEGORIES[int(prediction[0][0])]
+    return CATEGORIES[int(labels)]
 
 def timer():
     global g_repscreen, g_bloqueur, tempsPub, t1, t2, g_klog
