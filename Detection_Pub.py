@@ -14,11 +14,11 @@ import keylog
 
 g_klog = None
 g_repscreen = None
-cmpt = 350
+cmpt = 22
 
 def init():
     global g_klog, g_repscreen
-    g_repscreen = repeatedTime.RepeatedTimer(2,process_image)
+    g_repscreen = repeatedTime.RepeatedTimer(1,process_image)
     g_klog = keylog.KeyLogger()
     startAll()
 
@@ -45,7 +45,7 @@ def process_image():
         FILES_DIR = 'C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo'
         SAVE_PATH = "C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo"
         #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
-        LOGFILE_NAME = "TF1v2"+str(cmpt)+".png"
+        LOGFILE_NAME = "TF1_couleur"+str(cmpt)+".png"
 
         LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         img.save(LOGFILE_PATH)
