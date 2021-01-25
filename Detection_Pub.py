@@ -40,7 +40,7 @@ def stopAll():
 
 
 def process_image():
-    """"""
+    """This function takes a screenshot of the top right corner (because french tv put the logo here)"""
     global cmpt
 
     cmpt = cmpt+1
@@ -48,8 +48,9 @@ def process_image():
     if (g_klog.a_stopMain):
         img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
 
-        FILES_DIR = 'C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo'
-        SAVE_PATH = "C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo"
+        os_path = os.getcwd()+"\Photos\logo"
+        FILES_DIR = os_path
+        SAVE_PATH = os_path
         #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
         LOGFILE_NAME = "TF1_"+str(cmpt)+".png"
 
