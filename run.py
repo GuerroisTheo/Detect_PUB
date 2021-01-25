@@ -52,7 +52,7 @@ def stopAll():
 
 
 def screen():
-    """Give the IA an image of the top right corner and return if its advertising or logo"""
+    """Give the AI an image of the top right corner and return if its advertising or logo"""
     global g_tempsatt, tempsPub
     if (g_klog.a_stopMain):
         screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137)) #Take the top right corner image
@@ -64,7 +64,7 @@ def screen():
         LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         screen.save(LOGFILE_PATH)
         test = datagen.flow_from_directory("./puber", class_mode=None, target_size=(40,40), batch_size=1)
-        prediction = model.predict(test[0]) #The IA compare the image to her database 
+        prediction = model.predict(test[0]) #The AI compare the image to her database 
 
         labels = np.argmax(prediction, axis=1) #0 if logo / 1 if pub
 
@@ -81,7 +81,7 @@ def screen():
 
 
 def taillemaxqueue(max,queue):
-    """Maximum lenght of the queue"""
+    """Restriction of the maximum lenght of the queue"""
     if len(queue)>max:
         queue.popleft()
         taillemaxqueue(max,queue)
