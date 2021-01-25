@@ -45,7 +45,7 @@ def process_image():
         FILES_DIR = 'C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo'
         SAVE_PATH = "C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo"
         #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
-        LOGFILE_NAME = "TF1_couleur"+str(cmpt)+".png"
+        LOGFILE_NAME = "TF1_"+str(cmpt)+".png"
 
         LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         img.save(LOGFILE_PATH)
