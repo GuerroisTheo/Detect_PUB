@@ -1,3 +1,4 @@
+"""All imports necessary to carry out this process"""
 import cv2
 import keylog
 import numpy as np
@@ -10,18 +11,17 @@ from keras import utils, layers, optimizers, models
 from keras.preprocessing import image
 
 
-# c'est pour avoir tout l'écran
+"""Cv2 and image grab don't take the whole screen"""
 from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
 
-model = models.load_model('param.h5')
 
+""""""
+model = models.load_model('bestmodel.h5')
 g_queue = collections.deque([0.,0.,0.,0.,0.])
 g_tempsatt = 5
-
 datagen = image.ImageDataGenerator(rescale=1./255, validation_split=0.2)
-
 CATEGORIES = ["LOGO","PUB"]
 g_repscreen = None
 tempsPub = []
@@ -31,24 +31,28 @@ t1 = 0
 t2 = 0
 
 def init():
+    """"""
     global g_repscreen, g_bloqueur, g_klog
     g_repscreen = repeatedTime.RepeatedTimer(1,screen)
     g_klog = keylog.KeyLogger()
     startAll()
 
 def startAll():
+    """"""
     global g_repscreen, g_klog
     g_repscreen.start()
     g_klog.start()
 
 
 def stopAll():
+    """"""
     global g_repscreen, g_klog
     g_repscreen.stop()
     g_klog.stop()
 
 
 def screen():
+    """"""
     global g_tempsatt, tempsPub
     if (g_klog.a_stopMain):
         screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
@@ -76,11 +80,13 @@ def screen():
 
 
 def taillemaxqueue(max,queue):
+    """"""
     if len(queue)>max:
         queue.popleft()
         taillemaxqueue(max,queue)
 
 def timer(g_queue):
+    """"""
     global g_repscreen, g_bloqueur, tempsPub, t1, t2, g_klog
 
     labels = list(collections.deque(g_queue))

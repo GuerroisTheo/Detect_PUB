@@ -1,6 +1,6 @@
+"""All imports necessary to carry out this process"""
 import numpy as np
 import matplotlib.pyplot as plt
-
 from keras import utils, layers, optimizers, models
 from keras.preprocessing import image
 from keras.callbacks import ModelCheckpoint

