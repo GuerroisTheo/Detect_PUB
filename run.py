@@ -17,7 +17,7 @@ user32 = windll.user32
 user32.SetProcessDPIAware()
 
 
-""""""
+"""Global variable initialization"""
 model = models.load_model('bestmodel.h5')
 g_queue = collections.deque([0.,0.,0.,0.,0.])
 g_tempsatt = 5
@@ -31,45 +31,46 @@ t1 = 0
 t2 = 0
 
 def init():
-    """"""
+    """This function instantiates all our global variables."""
     global g_repscreen, g_bloqueur, g_klog
     g_repscreen = repeatedTime.RepeatedTimer(1,screen)
     g_klog = keylog.KeyLogger()
     startAll()
 
 def startAll():
-    """"""
+    """Starts listening to the keyboard and recording the screen."""
     global g_repscreen, g_klog
     g_repscreen.start()
     g_klog.start()
 
 
 def stopAll():
-    """"""
+    """Stops all processes."""
     global g_repscreen, g_klog
     g_repscreen.stop()
     g_klog.stop()
 
 
 def screen():
-    """"""
+    """Give the IA an image of the top right corner and return if its advertising or logo"""
     global g_tempsatt, tempsPub
     if (g_klog.a_stopMain):
-        screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
-        FILES_DIR = 'C:/Users/TLG/Desktop/IAImage/ProjetPubE4/Detect_PUB/puber/images'
-        SAVE_PATH = 'C:/Users/TLG/Desktop/IAImage/ProjetPubE4/Detect_PUB/puber/images'
+        screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137)) #Take the top right corner image
+        os_path = os.getcwd()+"\puber\images"
+        FILES_DIR = os_path
+        SAVE_PATH = os_path
         LOGFILE_NAME = "puber.png"
 
         LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         screen.save(LOGFILE_PATH)
         test = datagen.flow_from_directory("./puber", class_mode=None, target_size=(40,40), batch_size=1)
-        prediction = model.predict(test[0])
+        prediction = model.predict(test[0]) #The IA compare the image to her database 
 
-        labels = np.argmax(prediction, axis=1)
+        labels = np.argmax(prediction, axis=1) #0 if logo / 1 if pub
 
         print(CATEGORIES[labels[0]])
         
-        g_queue.append(labels)
+        g_queue.append(labels) #Add it to the queue
 
         if len(g_queue) > g_tempsatt : 
                 timer(g_queue)
@@ -80,13 +81,13 @@ def screen():
 
 
 def taillemaxqueue(max,queue):
-    """"""
+    """Maximum lenght of the queue"""
     if len(queue)>max:
         queue.popleft()
         taillemaxqueue(max,queue)
 
 def timer(g_queue):
-    """"""
+    """Append pub duration in a list"""
     global g_repscreen, g_bloqueur, tempsPub, t1, t2, g_klog
 
     labels = list(collections.deque(g_queue))
