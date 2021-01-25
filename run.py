@@ -18,7 +18,7 @@ user32.SetProcessDPIAware()
 
 
 """Global variable initialization"""
-model = models.load_model('bestmodel.h5')
+model = models.load_model('param.h5')
 g_queue = collections.deque([0.,0.,0.,0.,0.])
 g_tempsatt = 5
 datagen = image.ImageDataGenerator(rescale=1./255, validation_split=0.2)
@@ -77,7 +77,7 @@ def screen():
                 taillemaxqueue(g_tempsatt,g_queue)
     else:
         stopAll()
-        print(sum(tempsPub))
+        print('You have just watch {0} sec of Pub equals to {1} min'.format(sum(tempsPub), sum(tempsPub)/60))
 
 
 def taillemaxqueue(max,queue):
@@ -92,7 +92,7 @@ def timer(g_queue):
 
     labels = list(collections.deque(g_queue))
 
-    if labels.count(1) == 5 or labels.count(0) == 5:
+    if labels.count(1) == 6 or labels.count(0) == 6:
 
         if CATEGORIES[int(labels[-1])] == "PUB" and g_bloqueur == 1:
             t1 = time.time()
