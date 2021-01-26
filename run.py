@@ -27,12 +27,15 @@ g_repscreen = None
 tempsPub = []
 g_klog = None
 g_bloqueur = 1
+g_temps_global = 0
+g_temps_global_stop = 0
 t1 = 0
 t2 = 0
 
 def init():
     """This function instantiates all our global variables."""
-    global g_repscreen, g_bloqueur, g_klog
+    global g_repscreen, g_bloqueur, g_klog, g_temps_global
+    g_temps_global = time.time()
     g_repscreen = repeatedTime.RepeatedTimer(1,screen)
     g_klog = keylog.KeyLogger()
     startAll()
@@ -77,7 +80,8 @@ def screen():
                 taillemaxqueue(g_tempsatt,g_queue)
     else:
         stopAll()
-        print('You have just watch {0} sec of Pub equals to {1} min'.format(sum(tempsPub), sum(tempsPub)/60))
+        g_temps_global_stop = time.time()
+        print('You have just watch {0} sec of Pub equals to {1} min during {2} min'.format(sum(tempsPub), sum(tempsPub)/60, (g_temps_global_stop-g_temps_global)/60))
 
 
 def taillemaxqueue(max,queue):
