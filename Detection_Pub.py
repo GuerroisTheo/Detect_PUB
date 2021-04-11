@@ -54,10 +54,10 @@ def process_image(image_ori, cmpt):
 
     img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
 
-    FILES_DIR = 'C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo'
-    SAVE_PATH = "C:/Users/Theo/Documents/GITHUB/Detect_PUB/Photos/logo"
+    FILES_DIR = 'C:/Users/TLG/Desktop/Captures'
+    SAVE_PATH = "C:/Users/TLG/Desktop/Captures"
     #SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
-    LOGFILE_NAME = "france"+str(cmpt)+".png"
+    LOGFILE_NAME = "france2"+str(cmpt)+".png"
 
     LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
     img.save(LOGFILE_PATH)
@@ -67,15 +67,21 @@ def process_image(image_ori, cmpt):
     return new_img
 
 # last_time = time.time()
-cmpt = 778
+cmpt = 1260
+sec = 0
 while(True):
     screen = np.array(ImageGrab.grab(bbox=(1594, 41, 1902 , 137))) #bbox=(0,40, 900, 800)
 
     ecran_ = cv2.cvtColor((screen), cv2.COLOR_BGR2RGB)
-    # ecran_gris = cv2.cvtColor((ecran), cv2.COLOR_BGR2GRAY)
+    ecran_gris = cv2.cvtColor((ecran_), cv2.COLOR_BGR2GRAY)
 
-    # new_ecran = process_image(ecran_gris,cmpt)
-    # cmpt +=1
+    if sec == 60 :
+        new_ecran = process_image(ecran_gris,cmpt)
+        cmpt +=1
+        sec = 0
+    else :
+        sec = sec + 1
+        
     cv2.imshow('window1',cv2.cvtColor((ecran_), cv2.COLOR_BGR2RGB))
     # cv2.imshow('window2',cv2.cvtColor((ecran), cv2.COLOR_BGR2RGB))
 
