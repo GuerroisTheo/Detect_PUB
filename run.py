@@ -16,7 +16,6 @@ from ctypes import windll
 user32 = windll.user32
 user32.SetProcessDPIAware()
 
-<<<<<<< HEAD
 model = models.load_model('france2_model.h5') #TF1model
 
 g_queue = collections.deque([0.,0.,0.,0.])
@@ -24,35 +23,20 @@ g_tempsatt = 4
 
 datagen = image.ImageDataGenerator(rescale=1./255)
 
-=======
-
-"""Global variable initialization"""
-model = models.load_model('param.h5')
-g_queue = collections.deque([0.,0.,0.,0.,0.])
-g_tempsatt = 5
-datagen = image.ImageDataGenerator(rescale=1./255, validation_split=0.2)
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
 CATEGORIES = ["LOGO","PUB"]
 data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 g_repscreen = None
 tempsPub = []
 g_klog = None
 g_bloqueur = 1
-g_temps_global = 0
-g_temps_global_stop = 0
 t1 = 0
 t2 = 0
 ttotal = 0
 nombrePub = 0
 
 def init():
-<<<<<<< HEAD
-    global g_repscreen, g_bloqueur, g_klog, ttotal
-=======
     """This function instantiates all our global variables."""
-    global g_repscreen, g_bloqueur, g_klog, g_temps_global
-    g_temps_global = time.time()
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
+    global g_repscreen, g_bloqueur, g_klog, ttotal
     g_repscreen = repeatedTime.RepeatedTimer(1,screen)
     g_klog = keylog.KeyLogger()
     ttotal = time.time()
@@ -67,23 +51,16 @@ def startAll():
 
 
 def stopAll():
-<<<<<<< HEAD
     global g_repscreen, g_klog, t2
-=======
-    """Stops all processes."""
-    global g_repscreen, g_klog
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
+
     g_repscreen.stop()
     g_klog.stop()
 
 
 def screen():
-<<<<<<< HEAD
     global g_tempsatt, tempsPub, data
-=======
+
     """Give the AI an image of the top right corner and return if its advertising or logo"""
-    global g_tempsatt, tempsPub
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
     if (g_klog.a_stopMain):
         screen = ImageGrab.grab(bbox=(1594, 41, 1902 , 137)) #Take the top right corner image
         os_path = os.getcwd()+"\puber\images"
@@ -93,11 +70,13 @@ def screen():
 
         LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         screen.save(LOGFILE_PATH)
-<<<<<<< HEAD
-        #test = datagen.flow_from_directory("./puber", class_mode=None, target_size=(100,100), batch_size=1)
-        #prediction = model.predict(test[0])
 
-        #data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
+        #########Option 1
+
+        test = datagen.flow_from_directory("./puber", class_mode=None, target_size=(100,100), batch_size=1)
+        prediction = model.predict(test[0])
+
+        #########Option 2
 
         image = Image.open('./puber/images/puber.png')
 
@@ -107,12 +86,9 @@ def screen():
         #image.show()
         normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
         data[0] = normalized_image_array
-
         prediction = model.predict(data)
-=======
-        test = datagen.flow_from_directory("./puber", class_mode=None, target_size=(40,40), batch_size=1)
-        prediction = model.predict(test[0]) #The AI compare the image to her database 
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
+
+        #########Final
 
         labels = np.argmax(prediction, axis=1) #0 if logo / 1 if pub
 
@@ -125,14 +101,10 @@ def screen():
                 taillemaxqueue(g_tempsatt,g_queue)
     else:
         stopAll()
-<<<<<<< HEAD
         print("Temps pub : " + str(sum(tempsPub)))
         print("Nombre de pubs : " + str(nombrePub))
         print("Temps total visionnage : " + str(time.time() - ttotal))
-=======
-        g_temps_global_stop = time.time()
-        print('You have just watch {0} sec of Pub equals to {1} min during {2} min'.format(sum(tempsPub), sum(tempsPub)/60, (g_temps_global_stop-g_temps_global)/60))
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
+        print('You have just watch {0} sec of Pub equals to {1} min during {2} min'.format(sum(tempsPub), sum(tempsPub)/60, (time.time() - ttotal)/60))
 
 
 def taillemaxqueue(max,queue):
@@ -142,19 +114,15 @@ def taillemaxqueue(max,queue):
         taillemaxqueue(max,queue)
 
 def timer(g_queue):
-<<<<<<< HEAD
-    global g_repscreen, g_bloqueur, tempsPub, t1, t2, nombrePub
-=======
     """Append pub duration in a list"""
-    global g_repscreen, g_bloqueur, tempsPub, t1, t2, g_klog
->>>>>>> 3cbf8d75f504848899ae98bfa30eee106c64e5e0
+    global g_repscreen, g_bloqueur, tempsPub, t1, t2, nombrePub
 
     labels = list(g_queue)
     #print(labels)
     #print(labels.count(1))
     #print(labels.count(0))
 
-    if labels.count(1) == 6 or labels.count(0) == 6:
+    if labels.count(1) == 5 or labels.count(0) == 5:
 
         if CATEGORIES[int(labels[-1])] == "PUB" and g_bloqueur == 1:
             t1 = time.time()
