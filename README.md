@@ -8,7 +8,7 @@ Voici la liste des librairies utilisés pour ce projet :
 
 * cv2 (opencv-python)
 * numpy
-* keylog
+* pynput
 * PIL (Pillow)
 * time
 * keras
