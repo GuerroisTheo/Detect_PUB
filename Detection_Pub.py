@@ -48,7 +48,8 @@ def process_image():
 
     	if (g_klog.a_stopMain):
         	cmpt = cmpt+1
-        	img = ImageGrab.grab(bbox=(0, 41, 308, 137))
+        	img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))#à gauche
+        	#img = ImageGrab.grab(bbox=(0, 41, 308, 137))#à droite
 
         	os_path = os.getcwd()+"\Photos\logo"
         	FILES_DIR = 'C:/Users/TLG/Desktop/Captures'
