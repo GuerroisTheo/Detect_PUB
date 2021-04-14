@@ -16,7 +16,7 @@ import keylog
 #here we have our global variables
 g_klog = None
 g_repscreen = None
-cmpt = 0
+cmpt = 102 
 sec = 0
 
 def init():
@@ -48,13 +48,13 @@ def process_image():
 
     	if (g_klog.a_stopMain):
         	cmpt = cmpt+1
-        	img = ImageGrab.grab(bbox=(1594, 41, 1902 , 137))
+        	img = ImageGrab.grab(bbox=(0, 41, 308, 137))
 
         	os_path = os.getcwd()+"\Photos\logo"
         	FILES_DIR = 'C:/Users/TLG/Desktop/Captures'
         	SAVE_PATH = 'C:/Users/TLG/Desktop/Captures'
         	#SAVE_PATH = os.path.expanduser("~")    #It is cross-platform
-        	LOGFILE_NAME = "TF1_"+str(cmpt)+".png"
+        	LOGFILE_NAME = "BFM_"+str(cmpt)+".png"
 
         	LOGFILE_PATH = os.path.join(SAVE_PATH, FILES_DIR, LOGFILE_NAME)
         	img.save(LOGFILE_PATH)
