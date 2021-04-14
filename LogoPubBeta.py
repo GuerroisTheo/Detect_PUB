@@ -30,10 +30,10 @@ n_pixla = 100
 datagen = image.ImageDataGenerator(rescale=1./255, validation_split = 0.2) #Normalisation
 
 # train set
-train_generator = datagen.flow_from_directory("./Photos/TF1/Photos", subset='training', target_size=(n_pixlo,n_pixla), batch_size=32)
+train_generator = datagen.flow_from_directory("./Photos/France 2/Photos", subset='training', target_size=(n_pixlo,n_pixla), batch_size=32)
 
 # validation set
-valid_generator = datagen.flow_from_directory("./Photos/TF1/Photos", subset='validation', target_size=(n_pixlo,n_pixla), batch_size=32)
+valid_generator = datagen.flow_from_directory("./Photos/France 2/Photos", subset='validation', target_size=(n_pixlo,n_pixla), batch_size=32)
 
 class_names = train_generator.classes
 print(len(class_names))
@@ -63,14 +63,15 @@ model.compile(loss='binary_crossentropy', optimizer=optimizers.Adam(lr=1e-4), me
 #path = "training/cp.ckpt"
 #direction = os.path.dirname(path)
 
-#mcp_save = ModelCheckpoint("./Modeles/test.h5", save_best_only=True, verbose = 1, monitor = "acc", mode = "auto")
+mcp_save = ModelCheckpoint("./Modeles/france2.h5", save_best_only=True, verbose = 1, monitor = "acc", mode = "auto")
 
 # Train the network
 history = model.fit(
       train_generator,
-      steps_per_epoch=50,
+      steps_per_epoch=40,
       validation_data=valid_generator,
       epochs=20,
+      callbacks = [mcp_save]
       )
       #callbacks = [mcp_save]
       #validation_steps=50)
