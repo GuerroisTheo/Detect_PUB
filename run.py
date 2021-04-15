@@ -19,7 +19,7 @@ user32 = windll.user32
 user32.SetProcessDPIAware()
 
 modelchaine = 'france2.h5'
-model = models.load_model('.\\Modeles\\'+modelchaine) #TF1model
+model = models.load_model('./Modeles/'+modelchaine) #TF1model
 
 g_queue = collections.deque([0.,0.,0.,0.])
 g_tempsatt = 4
@@ -81,15 +81,15 @@ def screen():
 
         #########Option 2
 
-        image = Image.open('./puber/images/puber.png')
+        #image = Image.open('./puber/images/puber.png')
 
-        size = (224, 224)
-        image = ImageOps.fit(image, size, Image.ANTIALIAS)
-        image_array = np.asarray(image)
+        #size = (224, 224)
+        #image = ImageOps.fit(image, size, Image.ANTIALIAS)
+        #image_array = np.asarray(image)
         #image.show()
-        normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
-        data[0] = normalized_image_array
-        prediction = model.predict(data)
+        #normalized_image_array = (image_array.astype(np.float32) / 127.0) - 1
+        #data[0] = normalized_image_array
+        #prediction = model.predict(data)
 
         #########Final
 
